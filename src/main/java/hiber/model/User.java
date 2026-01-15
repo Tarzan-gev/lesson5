@@ -1,6 +1,8 @@
 package hiber.model;
 
 import javax.persistence.*;
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "users")
@@ -30,7 +32,8 @@ public class User {
         this.car = car;
     }
 
-    public User() {}
+    public User() {
+    }
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -68,5 +71,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(car, user.car);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, car);
     }
 }
